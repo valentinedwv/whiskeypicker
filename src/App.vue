@@ -5,9 +5,9 @@
     <!--   <div>{{ whiskeys }}</div> -->
     <div class="tabs two">
       <input id='tab-1' type='radio' name='tabgroupB' checked/>
-      <label class="pseudo button toggle" for="tab-1">Forest</label>
+      <label class="pseudo button toggle" for="tab-1">Random</label>
       <input id='tab-2' type='radio' name='tabgroupB'>
-      <label class="pseudo button toggle" for="tab-2">Lake</label>
+      <label class="pseudo button toggle" for="tab-2">Listing</label>
       <div class="row">
         <div>
           <whisky-selector :whiskeys="whiskeys"/>

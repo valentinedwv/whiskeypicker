@@ -20,7 +20,7 @@
       <option  v-bind:value="{min: 75, max:10000 } ">75</option>
     </select>
     </fieldset>
-    <label for="modal_1" class="button" v-on:click="spinTheBottle" >Show modal</label>
+    <label for="modal_1" class="button" v-on:click="spinTheBottle" >Pick Me Some</label>
 
     <div class="modal">
       <input id="modal_1" type="checkbox" />

@@ -1,7 +1,16 @@
 <template>
   <div >
     <h1>Flight of the Random Whiskey</h1>
-    <div>I would like a:</div>
+    <WhiskeyTable msg="AnyOfThem" :w="whiskeys" :range="{min: 0, max:10000 }"/>
+    <WhiskeyTable msg="Everyday" :w="whiskeys" :range="{min: 0, max:15 }"/>
+    <WhiskeyTable msg="Good Day" :w="whiskeys" :range="{min: 10, max:30 }"/>
+    <WhiskeyTable msg="Great Day" :w="whiskeys" :range="{min: 20, max:40 }"/>
+    <WhiskeyTable msg="Special Day" :w="whiskeys" :range="{min: 30, max:60 }"/>
+    <WhiskeyTable msg="Make Bruces' Day" :w="whiskeys" :range="{min: 50, max:100 }"/>
+    <WhiskeyTable msg="Extra Special" :w="whiskeys" :range="{min: 75, max:10000 }"/>
+
+
+    <div>Limit Selections to: </div>
     <fieldset class="flex two">
     <label v-for="wt in whiskeyTypes" v-bind:key="wt" :for="wt">
       <input type="checkbox" checked v-model="whiskeyTypesSelect" :id="wt" :value="wt" v-on:change="spinTheBottle" >
@@ -45,36 +54,10 @@
         </footer>
       </article>
     </div>
-<div> Any of Them</div>
-    <div v-for="b in propsedSelections" :key="b.name">
-      <span class="label"> {{b.name}} </span> <span class="label"> {{b.price}} </span>
-    </div>
-    <div>Everyday</div>
-    <div v-for="b in showPriceRange({min: 0, max:15 })" :key="b.name">
-      <span class="label"> {{b.name}} </span> <span class="label"> {{b.price}} </span>
-    </div>
-    <div> Good Day</div>
-    <div v-for="b in showPriceRange({min: 10, max:30 })" :key="b.name">
-      <span class="label"> {{b.name}} </span> <span class="label"> {{b.price}} </span>
-    </div>
-    <div> Great Day</div>
-    <div v-for="b in showPriceRange({min: 20, max:40 })" :key="b.name">
-      <span class="label"> {{b.name}} </span> <span class="label"> {{b.price}} </span>
-    </div>
-    <div> Special Day</div>
-    <div v-for="b in showPriceRange({min: 30, max:60 })" :key="b.name">
-      <span class="label"> {{b.name}} </span> <span class="label"> {{b.price}} </span>
-    </div>
-    <div> Make Bruces' Day</div>
-    <div v-for="b in showPriceRange({min: 50, max:100 })" :key="b.name">
-      <span class="label"> {{b.name}} </span> <span class="label"> {{b.price}} </span>
-    </div>
-    <div> Extra Special</div>
-    <div v-for="b in showPriceRange({min: 75, max:10000 })" :key="b.name">
-      <span class="label"> {{b.name}} </span> <span class="label"> {{b.price}} </span>
-    </div>
+
 
   </div>
+
 </template>
 
 <!--
@@ -87,8 +70,10 @@ grab all the imp-food-item, then imp-name[0].textContent, imp-price[0].textConte
 <script>
 //https://cleverbeagle.com/blog/articles/tutorial-how-to-load-third-party-scripts-dynamically-in-javascript
 //import imenupro from  'whiskey1'
+import WhiskeyTable from './WhiskeyTable'
 export default {
   name: 'WhiskySelector',
+  components:{"WhiskeyTable":WhiskeyTable},
   props: {
     msg: String,
     whiskeys: []
@@ -106,7 +91,7 @@ export default {
       whiskeyBadPrice:[],
       whiskeyCount: 0,
       prices: {min: 0, max:10000 },
-      propsedSelections: [],
+      propsedSelections:[]
 
     }
   },
