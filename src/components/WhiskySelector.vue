@@ -1,59 +1,25 @@
 <template>
   <div >
     <h1>Flight of the Random Whiskey</h1>
-    <WhiskeyTable msg="AnyOfThem" :w="whiskeys" :range="{min: 0, max:10000 }"/>
-    <WhiskeyTable msg="Everyday" :w="whiskeys" :range="{min: 0, max:15 }"/>
-    <WhiskeyTable msg="Good Day" :w="whiskeys" :range="{min: 10, max:30 }"/>
-    <WhiskeyTable msg="Great Day" :w="whiskeys" :range="{min: 20, max:40 }"/>
-    <WhiskeyTable msg="Special Day" :w="whiskeys" :range="{min: 30, max:60 }"/>
-    <WhiskeyTable msg="Make Bruces' Day" :w="whiskeys" :range="{min: 50, max:100 }"/>
-    <WhiskeyTable msg="Extra Special" :w="whiskeys" :range="{min: 75, max:10000 }"/>
+    <WhiskeyTable msg="Any of Them" :w="whiskeys" :range="{min: 0, max:10000 }" :wt="whiskeyTypesSelect" />
+    <WhiskeyTable msg="Everyday" :w="whiskeys" :range="{min: 0, max:15 }" :wt="whiskeyTypesSelect" />
+    <WhiskeyTable msg="Good Day" :w="whiskeys" :range="{min: 10, max:30 }" :wt="whiskeyTypesSelect" />
+    <WhiskeyTable msg="Great Day" :w="whiskeys" :range="{min: 20, max:40 }" :wt=" whiskeyTypesSelect" />
+    <WhiskeyTable msg="Special Day" :w="whiskeys" :range="{min: 30, max:60 }" :wt="whiskeyTypesSelect" />
+    <WhiskeyTable msg="Make Bruces' Day" :w="whiskeys" :range="{min: 50, max:100 }" :wt="whiskeyTypesSelect" />
+    <WhiskeyTable msg="Extra Special" :w="whiskeys" :range="{min: 75, max:10000 }" :wt="whiskeyTypesSelect" />
 
 
     <div>Limit Selections to: </div>
-    <fieldset class="flex two">
-    <label v-for="wt in whiskeyTypes" v-bind:key="wt" :for="wt">
-      <input type="checkbox" checked v-model="whiskeyTypesSelect" :id="wt" :value="wt" v-on:change="spinTheBottle" >
+    <fieldset class="flex four">
+    <label v-for="wt in whiskeyTypes" v-bind:key="wt" :for="wt.replaceAll(' ','') +'ws'">
+      <input type="checkbox"  v-model="whiskeyTypesSelect" :id="wt.replaceAll(' ','') +'ws'" :value="wt" v-on:change="spinTheBottle(whiskeys,prices, whiskeyTypesSelect)" >
       <span class="checkable">{{ wt }}</span>
     </label>
 
-    <label for="pricerange" >In the price range</label>
 
-    <select id="pricerange" v-model="prices"   v-on:change="spinTheBottle" >
-      <option v-bind:value="{min: 0, max:10000 }">Any of Them</option>
-      <option v-bind:value="{min: 0, max:15 }">Everyday</option>
-      <option v-bind:value=" {min: 10, max:30 } ">Good Day</option>
-      <option v-bind:value="{min: 20, max:40 } "> Great Day</option>
-      <option v-bind:value="{min: 30, max:60 } "> Special Day</option>
-      <option v-bind:value="{min: 50, max:100 } ">Make Bruces Day</option>
-      <option  v-bind:value=" {min: 75, max:10000 } ">Extra Special</option>
-
-
-    </select>
     </fieldset>
-    <label for="modal_1" class="button" v-on:click="spinTheBottle" >Show Me</label>
 
-    <div class="modal">
-      <input id="modal_1" type="checkbox" />
-      <label for="modal_1" class="overlay"></label>
-      <article>
-        <header>
-          <h3>Suggested Selections</h3>
-          <label for="modal_1" class="close">&times;</label>
-        </header>
-        <section class="content" >
-         <div v-for="b in propsedSelections" :key="b.name">
-           <span class="label"> {{b.name}} </span> <span class="label"> {{b.price}} </span>
-         </div>
-        </section>
-        <footer>
-
-          <label for="modal_1" class="button dangerous">.
-            Thanks
-          </label>
-        </footer>
-      </article>
-    </div>
 
 
   </div>
@@ -78,9 +44,10 @@ export default {
     msg: String,
     whiskeys: []
   },
-  // inject: ["whiskeys"
-  //   //   , "setSearchExactmatch"
-  // ],
+  inject: [  "spinTheBottle",
+    "showPriceRange", "propsedSelections"
+    //   , "setSearchExactmatch"
+  ],
  //  watch:{
  // //   whiskeys:"spinTheBottle"
  //  },
@@ -91,7 +58,7 @@ export default {
       whiskeyBadPrice:[],
       whiskeyCount: 0,
       prices: {min: 0, max:10000 },
-      propsedSelections:[]
+    //  propsedSelections:[]
 
     }
   },
@@ -211,13 +178,13 @@ export default {
       }
        return  selected
     },
-    spinTheBottle (){
-      var r = this.random(this.filter(this.whiskeys, this.prices ), 2)
-      this.propsedSelections= this.propsedSelections.slice(0,0).concat(r)
-    },
-    showPriceRange(range, count=2){
-      return this.random(this.filter(this.whiskeys, range ), count)
-    }
+    // spinTheBottle (){
+    //   var r = this.random(this.filter(this.whiskeys, this.prices ), 2)
+    //   this.propsedSelections= this.propsedSelections.slice(0,0).concat(r)
+    // },
+    // showPriceRange(range, count=2){
+    //   return this.random(this.filter(this.whiskeys, range ), count)
+    // }
   }
 
 }

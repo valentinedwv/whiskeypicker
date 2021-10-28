@@ -23,6 +23,7 @@
 import WhiskyList from './components/WhiskyList.vue'
 import WhiskySelector from "./components/WhiskySelector";
 
+
 export default {
   name: 'App',
   components: {
@@ -40,13 +41,18 @@ export default {
   // }
   provide: function () {
     return {
-      whiskeys: this.whiskeys
+      whiskeys: this.whiskeys,
+      spinTheBottle: this.spinTheBottle,
+      showPriceRange: this.showPriceRange,
+      propsedSelections: this.propsedSelections
     }
   },
   data() {
     return {
       whiskeys: [],
       whiskeysBadPrice: [],
+      propsedSelections:[],
+
     }
   },
 
@@ -88,7 +94,7 @@ export default {
     var whiskey_type = 'Type'
     var whiskey_brand = 'Brand'
     var whiskey_manufacturer = 'Manufacturuer'
-
+    var whiskeyId = 0
     for (var i = 0, len = menus.length | 0; i < len; i = i + 1 | 0) {
       var menuChildren = menus[i].children
 
@@ -122,13 +128,13 @@ export default {
                 if (Number.isInteger(p))
                   bottles.push({
                     name: name, price: p, whiskeyType: whiskey_type,
-                    whiskeyBrand: whiskey_brand, whiskeyManufacturer: whiskey_manufacturer
+                    whiskeyBrand: whiskey_brand, whiskeyManufacturer: whiskey_manufacturer, id: whiskeyId++
                   })
                 //    console.debug("bottle:" + name)
               } else {
                 badBottles.push({
                   name: name, price: price[0], whiskeyType: whiskey_type,
-                  whiskeyBrand: whiskey_brand, whiskeyManufacturer: whiskey_manufacturer
+                  whiskeyBrand: whiskey_brand, whiskeyManufacturer: whiskey_manufacturer, id: whiskeyId++
                 })
               }
             }
@@ -142,40 +148,49 @@ export default {
     this.whiskeys = bottles.sort((a, b) => a.price - b.price)
     this.whiskeyBadPrice = badBottles
     console.log(`whiskeys ${this.whiskeys.length}`)
+  },
+  methods:{
+    sorted: (w)=> {
+      if (w ){
+        return w.sort((a,b)=> a.price > b.price)
+      } else {
+        return []
+      }
+
+    },
+    filter(w,price, whiskeyTypesSelect=undefined){
+      var filtered = w
+      if (whiskeyTypesSelect !== undefined && whiskeyTypesSelect.length >0){
+
+        filtered = w.filter( b => whiskeyTypesSelect.includes(b.whiskeyType) )
+      }
+      filtered = filtered.filter(b => {
+        var t =  b.price  >= price.min && b.price  <= price.max
+        return t
+      })
+      return filtered
+
+    },
+    random ( w, count){
+      if (w=== undefined || w.length ===0 ) return []
+      var selected = []
+      for (var i =0; i < count; i++){
+        var r = Math.floor(Math.random() * w.length)
+        console.log(r)
+        console.log(w[r])
+        selected.push(w[r])
+      }
+      return  selected
+    },
+    spinTheBottle (w, range, whiskeyTypesSelect=undefined){
+      var r = this.random(this.filter(w, range, whiskeyTypesSelect ), 2)
+      this.propsedSelections= this.propsedSelections.slice(0,0).concat(r)
+    },
+    showPriceRange(w, range,  whiskeyTypesSelect=undefined, count=2){
+      return this.random(this.filter(w, range, whiskeyTypesSelect ), count)
+    }
   }
-  //     var headers = menus[i].getElementsByClassName(WHISKEY_TYPE_CLASS)
-  //     var menuName = "SomeWhiskey"
-  //     if (headers != undefined) {
-  //       menuName = headers[0].textContent
-  //     }
-  //
-  //     var w = menus[i].getElementsByClassName(WHISKEY_ITEM_CLASS)
-  //
-  //     for (var n = 0, nlen = w.length | 0; n < nlen; n = n + 1 | 0) {
-  //       var nameEl = w[n].getElementsByClassName(WHISKEY_NAME_CLASS)
-  //       var priceEl = w[n].getElementsByClassName(WHISKEY_PRICE_CLASS)
-  //       if (nameEl.length > 0 && priceEl.length > 0) {
-  //         var name = nameEl[0].textContent ? nameEl[0].textContent : 'Missing'
-  //         var price = priceEl[0].textContent ? priceEl[0].textContent.split('/') : undefined
-  //         if (isNaN(price)) {
-  //           var p = parseInt(price)
-  //           if (Number.isInteger(p))
-  //             bottles.push({name: name, price: p, whiskeyType: menuName})
-  //         } else {
-  //           badBottles.push({name: name, price: price[0], whiskeyType: menuName})
-  //         }
-  //
-  //       }
-  //
-  //
-  //     }
-  //     console.log(`menu: ${i}`)
-  //     console.log(`count: ${bottles.length}`)
-  //     console.log(`count bad: ${badBottles.length}`)
-  //   }
-  //   this.whiskey = bottles.sort((a, b) => a.price - b.price)
-  //   this.whiskeyBadPrice = badBottles
-  // }
+
 }
 </script>
 

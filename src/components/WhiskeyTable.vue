@@ -17,7 +17,7 @@
 
     </thead>
     <tbody>
-    <tr v-for="w in   showPriceRange()" :key="w.name">
+    <tr v-for="w in   showPriceRange(w,range,wt)" :key="w.name">
       <td> {{ w.whiskeyType }} </td>
       <td> {{ w.whiskeyBrand }} </td>
       <td> {{ w.name }} </td>
@@ -35,33 +35,38 @@ export default {
   props: {
     msg: String,
     w: [],
+    wt:[],
     range:{},
     count: {default:2, type:Number}
   },
+  inject: [  "spinTheBottle",
+    "showPriceRange", "propsedSelections"
+    //   , "setSearchExactmatch"
+  ],
   methods:{
-    filter(w,price){
-      var filtered = []
-      filtered = w.filter(b => {
-        var t =  b.price  >= price.min && b.price  <= price.max
-        return t
-      })
-      return filtered
-
-    },
-    random ( w, count){
-      if (w=== undefined || w.length ===0 ) return []
-      var selected = []
-      for (var i =0; i < count; i++){
-        var r = Math.floor(Math.random() * w.length)
-        console.log(r)
-        console.log(w[r])
-        selected.push(w[r])
-      }
-      return  selected
-    },
-    showPriceRange(){
-      return this.random(this.filter(this.w, this.range ), this.count)
-    }
+    // filter(w,price){
+    //   var filtered = []
+    //   filtered = w.filter(b => {
+    //     var t =  b.price  >= price.min && b.price  <= price.max
+    //     return t
+    //   })
+    //   return filtered
+    //
+    // },
+    // random ( w, count){
+    //   if (w=== undefined || w.length ===0 ) return []
+    //   var selected = []
+    //   for (var i =0; i < count; i++){
+    //     var r = Math.floor(Math.random() * w.length)
+    //     console.log(r)
+    //     console.log(w[r])
+    //     selected.push(w[r])
+    //   }
+    //   return  selected
+    // },
+    // showPriceRange(){
+    //   return this.random(this.filter(this.w, this.range ), this.count)
+    // }
   }
 }
 </script>

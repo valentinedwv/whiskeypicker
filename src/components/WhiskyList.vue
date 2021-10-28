@@ -2,15 +2,14 @@
   <div >
     <h1>Whiskey Listing</h1>
     <div>Show:</div>
-    <fieldset class="flex two">
-    <label v-for="wt in whiskeyTypes" v-bind:key="wt" :for="wt">
-      <input type="checkbox" checked v-model="whiskeyTypesSelect" :id="wt" :value="wt" v-on:change="spinTheBottle" >
-      <span class="checkable">{{ wt }}</span>
+    <fieldset class="flex four">
+    <label v-for="wt in whiskeyTypes" v-bind:key="wt" :for="wt.replaceAll(' ','') +'wl'">
+      <input type="checkbox"  v-model="whiskeyTypesSelect" :id="wt.replaceAll(' ','') +'wl'" :value="wt" v-on:change="selectFilters(whiskeys,prices, whiskeyTypesSelect)" >
+      <span class="checkable">{{ wt}}</span>
     </label>
-
+    </fieldset>
     <label for="pricerange" >In the price range</label>
-
-    <select id="pricerange" v-model="prices"  v-on:change="spinTheBottle" >
+    <select id="pricerange" v-model="prices"  v-on:change="selectFilters(whiskeys,prices, whiskeyTypesSelect)" >
       <option v-bind:value="{min: 0, max:15 }">&lt;15</option>
       <option v-bind:value=" {min: 15, max:20 } ">15 to 20</option>
       <option v-bind:value="{min: 20, max:30 } ">20-30</option>
@@ -19,30 +18,30 @@
       <option  v-bind:value="{min: 50, max:75 } ">50-75</option>
       <option  v-bind:value="{min: 75, max:10000 } ">75</option>
     </select>
-    </fieldset>
-    <label for="modal_1" class="button" v-on:click="spinTheBottle" >Pick Me Some</label>
 
-    <div class="modal">
-      <input id="modal_1" type="checkbox" />
-      <label for="modal_1" class="overlay"></label>
-      <article>
-        <header>
-          <h3>Suggested Selections</h3>
-          <label for="modal_1" class="close">&times;</label>
-        </header>
-        <section class="content" >
-         <div v-for="b in propsedSelections" :key="b.name">
-           <span class="label"> {{b.name}} </span> <span class="label"> {{b.price}} </span>
-         </div>
-        </section>
-        <footer>
+<!--    <label for="modal_1" class="button" v-on:click="spinTheBottle(whiskeys,prices, whiskeyTypesSelect)" >Pick Me Some</label>-->
 
-          <label for="modal_1" class="button dangerous">
-            Thanks
-          </label>
-        </footer>
-      </article>
-    </div>
+<!--    <div class="modal">-->
+<!--      <input id="modal_1" type="checkbox" />-->
+<!--      <label for="modal_1" class="overlay"></label>-->
+<!--      <article>-->
+<!--        <header>-->
+<!--          <h3>Suggested Selections</h3>-->
+<!--          <label for="modal_1" class="close">&times;</label>-->
+<!--        </header>-->
+<!--        <section class="content" >-->
+<!--         <div v-for="b in propsedSelections" :key="b.name">-->
+<!--           <span class="label"> {{b.name}} </span> <span class="label"> {{b.price}} </span>-->
+<!--         </div>-->
+<!--        </section>-->
+<!--        <footer>-->
+
+<!--          <label for="modal_1" class="button dangerous">-->
+<!--            Thanks-->
+<!--          </label>-->
+<!--        </footer>-->
+<!--      </article>-->
+<!--    </div>-->
 
 
     <h1>Whiskey Count: {{ this.whiskeys.length }}</h1>
@@ -65,7 +64,7 @@
 
       </thead>
       <tbody>
-      <tr v-for="w in whiskeys" :key="w.name">
+      <tr v-for="w in showPriceRange(this.whiskeys,this.prices,this.whiskeyTypesSelect, 10)" :key="w.id">
         <td> {{ w.whiskeyType }} </td>
         <td> {{ w.whiskeyBrand }} </td>
         <td> {{ w.name }} </td>
@@ -76,7 +75,7 @@
       </table>
     <div>
 
-      <div v-for="w in whiskeyBadPrice" :key="w.name">
+      <div v-for="w in whiskeyBadPrice" :key="w.id">
         <span>{{ w.name }}</span>
         <span>{{ w.price }}</span>
         <span>{{ w.whiskeyType }}</span>
@@ -96,15 +95,17 @@ grab all the imp-food-item, then imp-name[0].textContent, imp-price[0].textConte
 <script>
 //https://cleverbeagle.com/blog/articles/tutorial-how-to-load-third-party-scripts-dynamically-in-javascript
 //import imenupro from  'whiskey1'
+import vm from 'vue'
 export default {
   name: 'WhiskyList',
   props: {
     msg: String,
     whiskeys: []
   },
-  // inject: ["whiskeys"
-  //   //   , "setSearchExactmatch"
-  // ],
+  inject: [  "spinTheBottle",
+    "showPriceRange", "propsedSelections"
+    //   , "setSearchExactmatch"
+  ],
  //  watch:{
  // //   whiskeys:"spinTheBottle"
  //  },
@@ -115,7 +116,8 @@ export default {
       whiskeyBadPrice:[],
       whiskeyCount: 0,
       prices: {min: 0, max:10000 },
-      propsedSelections: [],
+    //  propsedSelections: [],
+      filteredWhiskeys:this.whiskeys
 
     }
   },
@@ -199,6 +201,7 @@ export default {
     }
   },
   methods:{
+    selectFilters: () => vm.$forceUpdate()
     // whiskeyTypes: function () {
     //   if (this.whiskeys) {
     //     var unique = [...new Set(this.whiskeys.map(item => item.whiskeyType))];
@@ -207,40 +210,40 @@ export default {
     //     return []
     //   }
     // },
-    sorted: (w)=> {
-      if (w ){
-        return w.sort((a,b)=> a.price > b.price)
-      } else {
-        return []
-      }
-
-    },
-    filter(w,price){
-      var filtered = []
-
-        filtered = w.filter(b => {
-          var t =  b.price  >= price.min && b.price  <= price.max
-          return t
-        })
-
-      return filtered
-
-    },
-    random ( w, count){
-      if (w=== undefined || w.length ===0 ) return []
-      var selected = []
-      for (var i =0; i < count; i++){
-        var r = Math.floor(Math.random() * w.length)
-        console.log(r)
-        console.log(w[r])
-        selected.push(w[r])
-      }
-       return  selected
-    },
-    spinTheBottle (){
-      var r = this.random(this.filter(this.whiskeys, this.prices ), 2)
-      this.propsedSelections= this.propsedSelections.slice(0,0).concat(r)
-    }
+    // sorted: (w)=> {
+    //   if (w ){
+    //     return w.sort((a,b)=> a.price > b.price)
+    //   } else {
+    //     return []
+    //   }
+    //
+    // },
+    // filter(w,price){
+    //   var filtered = []
+    //
+    //     filtered = w.filter(b => {
+    //       var t =  b.price  >= price.min && b.price  <= price.max
+    //       return t
+    //     })
+    //
+    //   return filtered
+    //
+    // },
+    // random ( w, count){
+    //   if (w=== undefined || w.length ===0 ) return []
+    //   var selected = []
+    //   for (var i =0; i < count; i++){
+    //     var r = Math.floor(Math.random() * w.length)
+    //     console.log(r)
+    //     console.log(w[r])
+    //     selected.push(w[r])
+    //   }
+    //    return  selected
+    // },
+    // spinTheBottle (){
+    //   var r = this.random(this.filter(this.whiskeys, this.prices ), 2)
+    //   this.propsedSelections= this.propsedSelections.slice(0,0).concat(r)
+    // }
   }
 
 }
