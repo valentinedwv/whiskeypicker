@@ -1,31 +1,27 @@
 <template>
   <div>
 
-  <table>
+  <div class="flex " v-if="w.length >0">
     <!--  name: name, price: p, whiskeyType: whiskey_type,
              whiskeyBrand: whiskey_brand, whiskeyManufacturer: whiskey_manufacturer -->
 
-    <thead>
-    <tr><th>{{msg}}</th></tr>
-    <tr>
-      <th>whiskeyType</th>
-      <th>whiskey Brand</th>
-      <th>Name</th>
-      <th>Price</th>
-      <th>whiskey Manufacturer</th>
-    </tr>
 
-    </thead>
-    <tbody>
-    <tr v-for="w in   showPriceRange(w,range,wt)" :key="w.name">
-      <td> {{ w.whiskeyType }} </td>
-      <td> {{ w.whiskeyBrand }} </td>
-      <td> {{ w.name }} </td>
-      <td> {{ w.price }} </td>
-      <td> {{ w.whiskeyManufacturer }} </td>
-    </tr>
-    </tbody>
-  </table>
+    <div>{{msg}}</div>
+
+    <div class="card" v-for="wh in w" :key="wh.name">
+
+
+
+
+
+      <div> <span class="label">whiskeyType</span> {{ wh.whiskeyType }} </div>
+      <div> <span class="label">whiskey Brand</span> {{ wh.whiskeyBrand }} </div>
+      <div>  <span class="label">Name</span> {{ wh.name }} </div>
+      <div> <span class="label">Price</span> {{ wh.price }} </div>
+      <div> <span class="label">whiskey Manufacturer</span> {{ wh.whiskeyManufacturer }} </div>
+    </div>
+
+  </div>
   </div>
 </template>
 

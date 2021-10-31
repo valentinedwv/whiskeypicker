@@ -22,7 +22,7 @@
 <script>
 import WhiskyList from './components/WhiskyList.vue'
 import WhiskySelector from "./components/WhiskySelector";
-
+import { titleCase } from "title-case";
 
 export default {
   name: 'App',
@@ -44,7 +44,9 @@ export default {
       whiskeys: this.whiskeys,
       spinTheBottle: this.spinTheBottle,
       showPriceRange: this.showPriceRange,
-      propsedSelections: this.propsedSelections
+      propsedSelections: this.propsedSelections,
+      whiskeyTypes: this.whiskeyTypes,
+      listPriceRange: this.listPriceRange,
     }
   },
   data() {
@@ -104,13 +106,15 @@ export default {
 
           var heading = node.firstElementChild
           if (heading.classList.contains(WHISKEY_TYPE_CLASS)) {
-            whiskey_type = heading.textContent
+            whiskey_type = heading.textContent.trim().toLowerCase()
+            whiskey_type = titleCase(whiskey_type)
 
           } else if (heading.classList.contains(WHISKEY_MANUFACTURER_CLASS)) {
-            whiskey_manufacturer = heading.textContent
-
+            whiskey_manufacturer = heading.textContent.trim().toLowerCase()
+            whiskey_manufacturer = titleCase(whiskey_manufacturer)
           } else if (heading.classList.contains(WHISKEY_BRAND_CLASS)) {
-            whiskey_brand = heading.textContent
+            whiskey_brand = heading.textContent.trim().toLowerCase()
+            whiskey_brand = titleCase(whiskey_brand)
 
           }
 
@@ -150,6 +154,20 @@ export default {
     console.log(`whiskeys ${this.whiskeys.length}`)
   },
   methods:{
+    whiskeyTypes: function (w) {
+      if (w) {
+        var unique = [...new Set(w.map(item => item.whiskeyType))];
+        //unique = unique.sort ((a,b)=> a.localeCompare(b))
+        var whiskeyInName = unique.filter(a => a.includes('Whisk'))
+        whiskeyInName = whiskeyInName.sort ((a,b)=> a.localeCompare(b))
+        var whiskeyNotInName = unique.filter(a => ! a.includes('Whisk'))
+        whiskeyNotInName = whiskeyNotInName.sort ((a,b)=> a.localeCompare(b))
+
+        return whiskeyInName.concat(whiskeyNotInName)
+      } else {
+        return []
+      }
+    },
     sorted: (w)=> {
       if (w ){
         return w.sort((a,b)=> a.price > b.price)
@@ -188,6 +206,14 @@ export default {
     },
     showPriceRange(w, range,  whiskeyTypesSelect=undefined, count=2){
       return this.random(this.filter(w, range, whiskeyTypesSelect ), count)
+
+
+    },
+    listPriceRange(w, range,  whiskeyTypesSelect=undefined){
+      var list = this.filter(w, range, whiskeyTypesSelect )
+      list = list.sort( (a,b) => a.name.localeCompare(b.name))
+      return list
+
     }
   }
 

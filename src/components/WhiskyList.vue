@@ -2,9 +2,10 @@
   <div >
     <h1>Whiskey Listing</h1>
     <div>Show:</div>
-    <fieldset class="flex four">
-    <label v-for="wt in whiskeyTypes" v-bind:key="wt" :for="wt.replaceAll(' ','') +'wl'">
-      <input type="checkbox"  v-model="whiskeyTypesSelect" :id="wt.replaceAll(' ','') +'wl'" :value="wt" v-on:change="selectFilters(whiskeys,prices, whiskeyTypesSelect)" >
+    <fieldset class="flex ">
+    <label v-for="wt in whiskeyTypes(whiskeys)" v-bind:key="wt" :for="wt.replaceAll(' ','') +'wl'">
+      <input type="checkbox"  v-model="whiskeyTypesSelect" :id="wt.replaceAll(' ','') +'wl'"
+             :value="wt" v-on:change="selectFilters(whiskeys,prices, whiskeyTypesSelect)" >
       <span class="checkable">{{ wt}}</span>
     </label>
     </fieldset>
@@ -45,42 +46,45 @@
 
 
     <h1>Whiskey Count: {{ this.whiskeys.length }}</h1>
+    <WhiskeyTable msg="Whiskeys" :w="listPriceRange(this.whiskeys,this.prices,this.whiskeyTypesSelect)" :range="{min: 0, max:10000 }" :wt="whiskeyTypesSelect"
+                  :count=10000
+    ></WhiskeyTable>
 <!--    <div>{{ whiskeyTypes }}</div>-->
 <!--    <div>Min {{ priceMin }}</div>-->
 <!--    <div>Max {{ priceMax }}</div>(-->
 <!--    <div>count {{ filter(this.whiskey, prices).length}}</div>-->
 
-    <table>
-      <!--  name: name, price: p, whiskeyType: whiskey_type,
-               whiskeyBrand: whiskey_brand, whiskeyManufacturer: whiskey_manufacturer -->
-      <thead>
-      <tr>
-        <th>whiskeyType</th>
-        <th>whiskey Brand</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>whiskey Manufacturer</th>
-      </tr>
+<!--    <table>-->
+<!--      &lt;!&ndash;  name: name, price: p, whiskeyType: whiskey_type,-->
+<!--               whiskeyBrand: whiskey_brand, whiskeyManufacturer: whiskey_manufacturer &ndash;&gt;-->
+<!--      <thead>-->
+<!--      <tr>-->
+<!--        <th>whiskeyType</th>-->
+<!--        <th>whiskey Brand</th>-->
+<!--        <th>Name</th>-->
+<!--        <th>Price</th>-->
+<!--        <th>whiskey Manufacturer</th>-->
+<!--      </tr>-->
 
-      </thead>
-      <tbody>
-      <tr v-for="w in showPriceRange(this.whiskeys,this.prices,this.whiskeyTypesSelect, 10)" :key="w.id">
-        <td> {{ w.whiskeyType }} </td>
-        <td> {{ w.whiskeyBrand }} </td>
-        <td> {{ w.name }} </td>
-        <td> {{ w.price }} </td>
-        <td> {{ w.whiskeyManufacturer }} </td>
-      </tr>
-      </tbody>
-      </table>
-    <div>
+<!--      </thead>-->
+<!--      <tbody>-->
+<!--      <tr v-for="w in listPriceRange(this.whiskeys,this.prices,this.whiskeyTypesSelect)" :key="w.id">-->
+<!--        <td> {{ w.whiskeyType }} </td>-->
+<!--        <td> {{ w.whiskeyBrand }} </td>-->
+<!--        <td> {{ w.name }} </td>-->
+<!--        <td> {{ w.price }} </td>-->
+<!--        <td> {{ w.whiskeyManufacturer }} </td>-->
+<!--      </tr>-->
+<!--      </tbody>-->
+<!--      </table>-->
+<!--    <div>-->
 
-      <div v-for="w in whiskeyBadPrice" :key="w.id">
-        <span>{{ w.name }}</span>
-        <span>{{ w.price }}</span>
-        <span>{{ w.whiskeyType }}</span>
-      </div>
-    </div>
+<!--      <div v-for="w in whiskeyBadPrice" :key="w.id">-->
+<!--        <span>{{ w.name }}</span>-->
+<!--        <span>{{ w.price }}</span>-->
+<!--        <span>{{ w.whiskeyType }}</span>-->
+<!--      </div>-->
+<!--    </div>-->
 
   </div>
 </template>
@@ -96,14 +100,17 @@ grab all the imp-food-item, then imp-name[0].textContent, imp-price[0].textConte
 //https://cleverbeagle.com/blog/articles/tutorial-how-to-load-third-party-scripts-dynamically-in-javascript
 //import imenupro from  'whiskey1'
 import vm from 'vue'
+import WhiskeyTable from './WhiskeyTable'
 export default {
   name: 'WhiskyList',
+  components:{"WhiskeyTable":WhiskeyTable},
   props: {
     msg: String,
     whiskeys: []
   },
+
   inject: [  "spinTheBottle",
-    "showPriceRange", "propsedSelections"
+    "listPriceRange", "propsedSelections", "whiskeyTypes"
     //   , "setSearchExactmatch"
   ],
  //  watch:{
@@ -165,14 +172,15 @@ export default {
 
   },
   computed: {
-    whiskeyTypes: function () {
-      if (this.whiskeys) {
-        var unique = [...new Set(this.whiskeys.map(item => item.whiskeyType))];
-        return unique
-      } else {
-        return []
-      }
-    },
+    // whiskeyTypes: function () {
+    //   if (this.whiskeys) {
+    //     var unique = [...new Set(this.whiskeys.map(item => item.whiskeyType))];
+    //     unique = unique.sort( (a,b)=> a < b )
+    //     return unique
+    //   } else {
+    //     return []
+    //   }
+    // },
     priceMax: function () {
 
         if (this.whiskeys) {
@@ -201,7 +209,8 @@ export default {
     }
   },
   methods:{
-    selectFilters: () => vm.$forceUpdate()
+    selectFilters: () => vm.$forceUpdate(),
+
     // whiskeyTypes: function () {
     //   if (this.whiskeys) {
     //     var unique = [...new Set(this.whiskeys.map(item => item.whiskeyType))];

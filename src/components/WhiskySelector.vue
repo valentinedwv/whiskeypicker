@@ -1,18 +1,18 @@
 <template>
   <div >
     <h1>Flight of the Random Whiskey</h1>
-    <WhiskeyTable msg="Any of Them" :w="whiskeys" :range="{min: 0, max:10000 }" :wt="whiskeyTypesSelect" />
-    <WhiskeyTable msg="Everyday" :w="whiskeys" :range="{min: 0, max:15 }" :wt="whiskeyTypesSelect" />
-    <WhiskeyTable msg="Good Day" :w="whiskeys" :range="{min: 10, max:30 }" :wt="whiskeyTypesSelect" />
-    <WhiskeyTable msg="Great Day" :w="whiskeys" :range="{min: 20, max:40 }" :wt=" whiskeyTypesSelect" />
-    <WhiskeyTable msg="Special Day" :w="whiskeys" :range="{min: 30, max:60 }" :wt="whiskeyTypesSelect" />
-    <WhiskeyTable msg="Make Bruces' Day" :w="whiskeys" :range="{min: 50, max:100 }" :wt="whiskeyTypesSelect" />
-    <WhiskeyTable msg="Extra Special" :w="whiskeys" :range="{min: 75, max:10000 }" :wt="whiskeyTypesSelect" />
+    <WhiskeyTable msg="Any of Them" :w="showPriceRange(whiskeys,{min: 0, max:10000 },whiskeyTypesSelect,2)" :range="{min: 0, max:10000 }" :wt="whiskeyTypesSelect" />
+    <WhiskeyTable msg="Everyday" :w="showPriceRange(whiskeys,{min: 0, max:15 },whiskeyTypesSelect,2)" :range="{min: 0, max:15 }" :wt="whiskeyTypesSelect" />
+    <WhiskeyTable msg="Good Day" :w="showPriceRange(whiskeys,{min: 10, max:30 },whiskeyTypesSelect,2)" :range="{min: 10, max:30 }" :wt="whiskeyTypesSelect" />
+    <WhiskeyTable msg="Great Day" :w="showPriceRange(whiskeys,{min: 20, max:40 },whiskeyTypesSelect,2)" :range="{min: 20, max:40 }" :wt=" whiskeyTypesSelect" />
+    <WhiskeyTable msg="Special Day" :w="showPriceRange(whiskeys,{min: 30, max:60 },whiskeyTypesSelect,2)" :range="{min: 30, max:60 }" :wt="whiskeyTypesSelect" />
+    <WhiskeyTable msg="Make Bruces' Day" :w="showPriceRange(whiskeys,{min: 50, max:100 },whiskeyTypesSelect,2)" :range="{min: 50, max:100 }" :wt="whiskeyTypesSelect" />
+    <WhiskeyTable msg="Extra Special" :w="showPriceRange(whiskeys,{min: 75, max:10000 },whiskeyTypesSelect,2)" :range="{min: 75, max:10000 }" :wt="whiskeyTypesSelect" />
 
 
     <div>Limit Selections to: </div>
-    <fieldset class="flex four">
-    <label v-for="wt in whiskeyTypes" v-bind:key="wt" :for="wt.replaceAll(' ','') +'ws'">
+    <fieldset class="flex">
+    <label v-for="wt in whiskeyTypes(whiskeys)" v-bind:key="wt" :for="wt.replaceAll(' ','') +'ws'">
       <input type="checkbox"  v-model="whiskeyTypesSelect" :id="wt.replaceAll(' ','') +'ws'" :value="wt" v-on:change="spinTheBottle(whiskeys,prices, whiskeyTypesSelect)" >
       <span class="checkable">{{ wt }}</span>
     </label>
@@ -45,7 +45,7 @@ export default {
     whiskeys: []
   },
   inject: [  "spinTheBottle",
-    "showPriceRange", "propsedSelections"
+    "showPriceRange", "propsedSelections","whiskeyTypes"
     //   , "setSearchExactmatch"
   ],
  //  watch:{
@@ -106,14 +106,14 @@ export default {
 
   },
   computed: {
-    whiskeyTypes: function () {
-      if (this.whiskeys) {
-        var unique = [...new Set(this.whiskeys.map(item => item.whiskeyType))];
-        return unique
-      } else {
-        return []
-      }
-    },
+    // whiskeyTypes: function () {
+    //   if (this.whiskeys) {
+    //     var unique = [...new Set(this.whiskeys.map(item => item.whiskeyType))];
+    //     return unique
+    //   } else {
+    //     return []
+    //   }
+    // },
     priceMax: function () {
 
         if (this.whiskeys) {
