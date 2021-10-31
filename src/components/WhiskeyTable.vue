@@ -1,12 +1,11 @@
 <template>
   <div>
-
-  <div class="flex " v-if="w.length >0">
+    <div>{{msg}}</div>
+  <div class="flex one two-600 four-1000 grow" v-if="w.length >0">
     <!--  name: name, price: p, whiskeyType: whiskey_type,
              whiskeyBrand: whiskey_brand, whiskeyManufacturer: whiskey_manufacturer -->
 
 
-    <div>{{msg}}</div>
 
     <div class="card" v-for="wh in w" :key="wh.name">
 
@@ -20,9 +19,9 @@
       <div> <span class="label">Price</span> {{ wh.price }} </div>
       <div> <span class="label">whiskey Manufacturer</span> {{ wh.whiskeyManufacturer }} </div>
     </div>
+</div>
+  </div>
 
-  </div>
-  </div>
 </template>
 
 <script>
