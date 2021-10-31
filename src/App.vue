@@ -125,7 +125,7 @@ export default {
             var nameEl = w[wi].getElementsByClassName(WHISKEY_NAME_CLASS)
             var priceEl = w[wi].getElementsByClassName(WHISKEY_PRICE_CLASS)
             if (nameEl.length > 0 && priceEl.length > 0) {
-              var name = nameEl[0].textContent ? nameEl[0].textContent : 'Missing'
+              var name = nameEl[0].textContent ? titleCase(nameEl[0].textContent) : 'Missing'
               var price = priceEl[0].textContent ? priceEl[0].textContent.split('/') : undefined
               if (isNaN(price)) {
                 var p = parseInt(price)
