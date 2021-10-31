@@ -11,7 +11,7 @@
 
 
     <div>Limit Selections to: </div>
-    <fieldset class="flex">
+    <fieldset class="flex two four-600 six-1000">
     <label v-for="wt in whiskeyTypes(whiskeys)" v-bind:key="wt" :for="wt.replaceAll(' ','') +'ws'">
       <input type="checkbox"  v-model="whiskeyTypesSelect" :id="wt.replaceAll(' ','') +'ws'" :value="wt" v-on:change="spinTheBottle(whiskeys,prices, whiskeyTypesSelect)" >
       <span class="checkable">{{ wt }}</span>

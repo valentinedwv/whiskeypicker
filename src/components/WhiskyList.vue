@@ -2,7 +2,7 @@
   <div >
     <h1>Whiskey Listing</h1>
     <div>Show:</div>
-    <fieldset class="flex ">
+    <fieldset class="flex two four-600 six-1000">
     <label v-for="wt in whiskeyTypes(whiskeys)" v-bind:key="wt" :for="wt.replaceAll(' ','') +'wl'">
       <input type="checkbox"  v-model="whiskeyTypesSelect" :id="wt.replaceAll(' ','') +'wl'"
              :value="wt" v-on:change="selectFilters(whiskeys,prices, whiskeyTypesSelect)" >
