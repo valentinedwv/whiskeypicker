@@ -2,7 +2,7 @@
   <div >
     <h1>All Whiskeys</h1>
 
-    <h1  v-if="whiskeys.length >0">Whiskey Count: {{ this.whiskeys.length }}</h1>
+    <h1  v-if="whiskeys">Whiskey Count: {{ this.whiskeys.length }}</h1>
     <table class="primary">
       <thead>
       <tr>
@@ -12,7 +12,7 @@
         <th>Manufacturer</th>
       </tr>
       </thead>
-    <tbody  v-if="whiskeys.length >0">
+    <tbody  v-if="whiskeys">
       <!--  name: name, price: p, whiskeyType: whiskey_type,
                whiskeyBrand: whiskey_brand, whiskeyManufacturer: whiskey_manufacturer -->
 
@@ -149,87 +149,11 @@ export default {
 
   },
   computed: {
-    // whiskeyTypes: function () {
-    //   if (this.whiskeys) {
-    //     var unique = [...new Set(this.whiskeys.map(item => item.whiskeyType))];
-    //     unique = unique.sort( (a,b)=> a < b )
-    //     return unique
-    //   } else {
-    //     return []
-    //   }
-    // },
-    priceMax: function () {
 
-        if (this.whiskeys) {
-          return this.whiskeys.reduce(
-              (previousValue, currentValue) =>
-                  previousValue =   (previousValue > currentValue.price) ?  previousValue : currentValue.price
-          )
-
-          // return this.whiskey.map(item => Number.parseFloat(item.price));
-        } else {
-          return 1000
-        }
-
-    },
-    priceMin: function () {
-      if (this.whiskeys) {
-        return this.whiskeys.reduce(
-            (previousValue, currentValue) =>
-                previousValue =(previousValue < currentValue.price) ?  previousValue : currentValue.price
-           )
-
-       // return this.whiskey.map(item => Number.parseFloat(item.price));
-      } else {
-        return 1000
-      }
-    }
   },
   methods:{
 
 
-    // whiskeyTypes: function () {
-    //   if (this.whiskeys) {
-    //     var unique = [...new Set(this.whiskeys.map(item => item.whiskeyType))];
-    //     return unique
-    //   } else {
-    //     return []
-    //   }
-    // },
-    // sorted: (w)=> {
-    //   if (w ){
-    //     return w.sort((a,b)=> a.price > b.price)
-    //   } else {
-    //     return []
-    //   }
-    //
-    // },
-    // filter(w,price){
-    //   var filtered = []
-    //
-    //     filtered = w.filter(b => {
-    //       var t =  b.price  >= price.min && b.price  <= price.max
-    //       return t
-    //     })
-    //
-    //   return filtered
-    //
-    // },
-    // random ( w, count){
-    //   if (w=== undefined || w.length ===0 ) return []
-    //   var selected = []
-    //   for (var i =0; i < count; i++){
-    //     var r = Math.floor(Math.random() * w.length)
-    //     console.log(r)
-    //     console.log(w[r])
-    //     selected.push(w[r])
-    //   }
-    //    return  selected
-    // },
-    // spinTheBottle (){
-    //   var r = this.random(this.filter(this.whiskeys, this.prices ), 2)
-    //   this.propsedSelections= this.propsedSelections.slice(0,0).concat(r)
-    // }
   }
 
 }
