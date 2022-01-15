@@ -12,7 +12,7 @@
         <th>Manufacturer</th>
       </tr>
       </thead>
-    <tbody  v-if="whiskeys">
+    <tbody  v-if="whiskeys.length >0">
       <!--  name: name, price: p, whiskeyType: whiskey_type,
                whiskeyBrand: whiskey_brand, whiskeyManufacturer: whiskey_manufacturer -->
 
