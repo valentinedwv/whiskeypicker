@@ -9,7 +9,7 @@ import WhiskySheet from "./components/WhiskySheet";
 
 Vue.config.productionTip = false
 const routes = [
-  { path: '/', name:"app", component: App },
+ // { path: '/', name:"app", component: App },
   { path: '/spin',name:"spin", component: WhiskySelector,
     props:
         route => ({
