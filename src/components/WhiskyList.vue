@@ -46,7 +46,7 @@
 <!--    </div>-->
 
 
-    <h1> Showing {{listPriceRange(this.whiskeys,this.prices,this.whiskeyTypesSelect).length}}  of {{ this.whiskeys.length }} Bottles</h1>
+    <h1  v-if="whiskeys.length >0" > Showing {{listPriceRange(this.whiskeys,this.prices,this.whiskeyTypesSelect).length}}  of {{ this.whiskeys.length }} Bottles</h1>
     <WhiskeyTable msg="Whiskeys" :w="listPriceRange(this.whiskeys,this.prices,this.whiskeyTypesSelect)" :range="{min: 0, max:10000 }" :wt="whiskeyTypesSelect"
                   :count=10000
     ></WhiskeyTable>

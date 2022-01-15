@@ -2,7 +2,7 @@
   <div >
     <h1>All Whiskeys</h1>
 
-    <h1>Whiskey Count: {{ this.whiskeys.length }}</h1>
+    <h1  v-if="whiskeys.length >0">Whiskey Count: {{ this.whiskeys.length }}</h1>
     <table class="primary">
       <thead>
       <tr>

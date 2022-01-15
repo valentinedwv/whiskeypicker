@@ -2,7 +2,7 @@
   <div >
     <h1>Flight of the Random Whiskey</h1>
     <h3> This shows two random whiskeys from a set of price ranges. You can filter by region by going to the bottom of the page</h3>
-    <h4>Selecting from {{whiskeys.length}} Bottles</h4>
+    <h4  v-if="whiskeys.length >0">Selecting from {{whiskeys.length}} Bottles</h4>
     <WhiskeyTable msg="Any of Them" :w="showPriceRange(whiskeys,{min: 0, max:10000 },whiskeyTypesSelect,2)" :range="{min: 0, max:10000 }" :wt="whiskeyTypesSelect" />
     <WhiskeyTable msg="Everyday" :w="showPriceRange(whiskeys,{min: 0, max:15 },whiskeyTypesSelect,2)" :range="{min: 0, max:15 }" :wt="whiskeyTypesSelect" />
     <WhiskeyTable msg="Good Day" :w="showPriceRange(whiskeys,{min: 10, max:30 },whiskeyTypesSelect,2)" :range="{min: 10, max:30 }" :wt="whiskeyTypesSelect" />
