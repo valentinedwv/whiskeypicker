@@ -1,0 +1,151 @@
+<template>
+  <div >
+    <h1>Search</h1>
+
+    <input type="text" id="search"/>
+    <table class="primary">
+      <thead>
+      <tr>
+        <th>Brand</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Manufacturer</th>
+      </tr>
+      </thead>
+    <tbody  v-if="whiskeys.length >0">
+      <!--  name: name, price: p, whiskeyType: whiskey_type,
+               whiskeyBrand: whiskey_brand, whiskeyManufacturer: whiskey_manufacturer -->
+
+
+
+      <tr  v-for="wh in byBrand(whiskeys)" :key="wh.name">
+
+        <td> {{ wh.whiskeyBrand }}</td>
+        <td>{{ wh.name }}</td>
+        <td>{{ wh.price }}</td>
+        <td>{{ wh.whiskeyManufacturer }} </td>
+
+      </tr>
+    </tbody>
+    </table>
+
+
+  </div>
+</template>
+
+<!--
+put all 4 javascripts on the page
+grab 4 imp-menu elements
+grab first imp-heading as the type
+grab all the imp-food-item, then imp-name[0].textContent, imp-price[0].textContent
+-->
+
+<script>
+//https://cleverbeagle.com/blog/articles/tutorial-how-to-load-third-party-scripts-dynamically-in-javascript
+//import imenupro from  'whiskey1'
+//import {Index, Document, Worker} from "./flexsearch"
+import { Document} from "./flexsearch"
+export default {
+  name: 'WhiskyPrice',
+
+  props: {
+    msg: String,
+    whiskeys: []
+  },
+
+  inject: [   "byBrand"
+    //   , "setSearchExactmatch"
+  ],
+ //  watch:{
+ // //   whiskeys:"spinTheBottle"
+ //  },
+  data() {
+    return {
+//      whiskey: this.whiskeys,
+      whiskeyTypesSelect:[],
+      whiskeyBadPrice:[],
+      whiskeyCount: 0,
+      prices: {min: 0, max:10000 },
+    //  propsedSelections: [],
+      suggestions: []
+      , document: {}
+
+    }
+  },
+  created() {
+    //const index = new Index("performance");
+    this.document  = new Document("performance");
+    if (this.whiskeys) {
+      this.whiskeys.forEach( (w ) => this.document.add(w.name, w))
+    }
+   // const worker = new Worker(options);
+  },
+  computed: {
+   
+  },
+  methods:{
+     show_results(){
+       var index = this.document
+  var value = this.value;
+  var results = index.search(value, 25, { suggest: true });
+  var entry, childs = this.suggestions.childNodes;
+  var i = 0, len = results.length;
+
+  for(; i < len; i++){
+
+    entry = childs[i];
+
+    if(!entry){
+
+      entry = document.createElement("div");
+      suggestions.appendChild(entry);
+    }
+
+    entry.textContent = data[results[i]];
+  }
+
+  while(childs.length > len){
+
+    suggestions.removeChild(childs[i])
+  }
+
+  var first_result = data[results[0]];
+  var match = first_result && first_result.toLowerCase().indexOf(value.toLowerCase());
+
+  if(first_result && (match !== -1)){
+
+    autocomplete.value = value + first_result.substring(match + value.length);
+    autocomplete.current = first_result;
+  }
+  else{
+
+    autocomplete.value = autocomplete.current = value;
+  }
+},
+
+   
+  }
+
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h3 {
+  margin: 40px 0 0;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+a {
+  color: #42b983;
+}
+</style>

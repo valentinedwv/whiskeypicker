@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "flexsearch": "^0.7.21",
     "lodash": "^4.17.21",
     "title-case": "^3.0.3",
     "vue": "^2.6.11",
-    "vue-material": "^1.0.0-beta-15"
+    "vue-material": "^1.0.0-beta-15",
+    "vue-router": "^3.5.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

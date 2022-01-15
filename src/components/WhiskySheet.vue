@@ -1,55 +1,33 @@
 <template>
   <div >
-    <h1>Whiskey Listing</h1>
-    <h3> This will let you select a region, and a price range and show you whiskeys that match those characteristics</h3>
-    <div>Show:</div>
-    <fieldset class="flex two four-600 six-1000">
-    <label v-for="wt in whiskeyTypes(whiskeys)" v-bind:key="wt" :for="wt.replaceAll(' ','') +'wl'">
-      <input type="checkbox"  v-model="whiskeyTypesSelect" :id="wt.replaceAll(' ','') +'wl'"
-             :value="wt" v-on:change="selectFilters(whiskeys,prices, whiskeyTypesSelect)" >
-      <span class="checkable">{{ wt}}</span>
-    </label>
-    </fieldset>
-    <label for="pricerange" >In the price range</label>
-    <select id="pricerange" v-model="prices"  v-on:change="selectFilters(whiskeys,prices, whiskeyTypesSelect)" >
-      <option v-bind:value="{min: 0, max:15 }">&lt;15</option>
-      <option v-bind:value=" {min: 15, max:20 } ">15 to 20</option>
-      <option v-bind:value="{min: 20, max:30 } ">20-30</option>
-      <option v-bind:value="{min: 30, max:40 } ">30-40</option>
-      <option  v-bind:value=" {min: 40, max:50 } ">40-50</option>
-      <option  v-bind:value="{min: 50, max:75 } ">50-75</option>
-      <option  v-bind:value="{min: 75, max:10000 } ">75</option>
-    </select>
+    <h1>All Whiskeys</h1>
 
-<!--    <label for="modal_1" class="button" v-on:click="spinTheBottle(whiskeys,prices, whiskeyTypesSelect)" >Pick Me Some</label>-->
-
-<!--    <div class="modal">-->
-<!--      <input id="modal_1" type="checkbox" />-->
-<!--      <label for="modal_1" class="overlay"></label>-->
-<!--      <article>-->
-<!--        <header>-->
-<!--          <h3>Suggested Selections</h3>-->
-<!--          <label for="modal_1" class="close">&times;</label>-->
-<!--        </header>-->
-<!--        <section class="content" >-->
-<!--         <div v-for="b in propsedSelections" :key="b.name">-->
-<!--           <span class="label"> {{b.name}} </span> <span class="label"> {{b.price}} </span>-->
-<!--         </div>-->
-<!--        </section>-->
-<!--        <footer>-->
-
-<!--          <label for="modal_1" class="button dangerous">-->
-<!--            Thanks-->
-<!--          </label>-->
-<!--        </footer>-->
-<!--      </article>-->
-<!--    </div>-->
+    <h1>Whiskey Count: {{ this.whiskeys.length }}</h1>
+    <table class="primary">
+      <thead>
+      <tr>
+        <th>Brand</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Manufacturer</th>
+      </tr>
+      </thead>
+    <tbody  v-if="whiskeys.length >0">
+      <!--  name: name, price: p, whiskeyType: whiskey_type,
+               whiskeyBrand: whiskey_brand, whiskeyManufacturer: whiskey_manufacturer -->
 
 
-    <h1> Showing {{listPriceRange(this.whiskeys,this.prices,this.whiskeyTypesSelect).length}}  of {{ this.whiskeys.length }} Bottles</h1>
-    <WhiskeyTable msg="Whiskeys" :w="listPriceRange(this.whiskeys,this.prices,this.whiskeyTypesSelect)" :range="{min: 0, max:10000 }" :wt="whiskeyTypesSelect"
-                  :count=10000
-    ></WhiskeyTable>
+
+      <tr  v-for="wh in byBrand(whiskeys)" :key="wh.name">
+
+        <td> {{ wh.whiskeyBrand }}</td>
+        <td>{{ wh.name }}</td>
+        <td>{{ wh.price }}</td>
+        <td>{{ wh.whiskeyManufacturer }} </td>
+
+      </tr>
+    </tbody>
+    </table>
 <!--    <div>{{ whiskeyTypes }}</div>-->
 <!--    <div>Min {{ priceMin }}</div>-->
 <!--    <div>Max {{ priceMax }}</div>(-->
@@ -100,18 +78,16 @@ grab all the imp-food-item, then imp-name[0].textContent, imp-price[0].textConte
 <script>
 //https://cleverbeagle.com/blog/articles/tutorial-how-to-load-third-party-scripts-dynamically-in-javascript
 //import imenupro from  'whiskey1'
-import vm from 'vue'
-import WhiskeyTable from './WhiskeyTable'
+
 export default {
-  name: 'WhiskyList',
-  components:{"WhiskeyTable":WhiskeyTable},
+  name: 'WhiskySheet',
+
   props: {
     msg: String,
     whiskeys: []
   },
 
-  inject: [  "spinTheBottle",
-    "listPriceRange", "propsedSelections", "whiskeyTypes"
+  inject: [   "byBrand"
     //   , "setSearchExactmatch"
   ],
  //  watch:{
@@ -210,7 +186,7 @@ export default {
     }
   },
   methods:{
-    selectFilters: () => vm.$forceUpdate(),
+
 
     // whiskeyTypes: function () {
     //   if (this.whiskeys) {

@@ -3,32 +3,28 @@
     <img alt="Boomerangs logo"
          src="https://boomerangburgers.com/wp-content/uploads/2020/06/Boomerangs-Restaurant-400px-Wide.png">
     <!--   <div>{{ whiskeys }}</div> -->
-    <div class="tabs two">
-      <input id='tab-1' type='radio' name='tabgroupB' checked/>
-      <label class="pseudo button toggle" for="tab-1">Random</label>
-      <input id='tab-2' type='radio' name='tabgroupB'>
-      <label class="pseudo button toggle" for="tab-2">Listing</label>
-      <div class="row">
-        <div>
-          <whisky-selector :whiskeys="whiskeys"/>
-        </div>
-        <div>
-          <WhiskyList msg="Welcome to Your Vue.js App" :whiskeys="whiskeys"/>
-        </div>
-      </div>
-    </div>
+<div class="flex one ">
+      <div ><router-link :to="{ name: 'spin', params: { whiskeys: whiskeys }}"> Spin Bottle (Random)</router-link></div>
+      <div > <router-link :to="{ name: 'select', params: { whiskeys: whiskeys }}">Select by Region and Price</router-link></div>
+      <div ><router-link :to="{ name: 'all', params: { whiskeys: whiskeys }}">Listing of All Bottles</router-link></div>
+</div>
+    <router-view></router-view>
+
   </div>
 </template>
 <script>
-import WhiskyList from './components/WhiskyList.vue'
-import WhiskySelector from "./components/WhiskySelector";
+//import WhiskyList from './components/WhiskyList.vue'
+//import WhiskySelector from "./components/WhiskySelector";
+//import WhiskySheet from "./components/WhiskySheet";
 import { titleCase } from "title-case";
+
 
 export default {
   name: 'App',
   components: {
-    WhiskyList: WhiskyList,
-    WhiskySelector: WhiskySelector
+//    WhiskyList: WhiskyList,
+//    WhiskySelector: WhiskySelector,
+//    WhiskySheet:WhiskySheet
   },
   // mounted() {
   //   const plugin = document.createElement("script");
@@ -47,6 +43,7 @@ export default {
       propsedSelections: this.propsedSelections,
       whiskeyTypes: this.whiskeyTypes,
       listPriceRange: this.listPriceRange,
+      byBrand: this.byBrand,
     }
   },
   data() {
@@ -171,6 +168,14 @@ export default {
     sorted: (w)=> {
       if (w ){
         return w.sort((a,b)=> a.price > b.price)
+      } else {
+        return []
+      }
+
+    },
+    byBrand: (w)=> {
+      if (w ){
+        return w.sort((a,b)=> a.whiskeyBrand.localeCompare( b.whiskeyBrand))
       } else {
         return []
       }
