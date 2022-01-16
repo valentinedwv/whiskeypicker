@@ -1,7 +1,7 @@
 <template>
 
-
-    <table class="primary" v-if="whiskeys.length >0">
+<div>
+    <table class="primary" v-if="w.length >0">
       <thead>
       <tr>
         <th>Brand</th>
@@ -10,13 +10,13 @@
         <th>Manufacturer</th>
       </tr>
       </thead>
-    <tbody  v-if="whiskeys.length >0">
+    <tbody  v-if="w.length >0">
       <!--  name: name, price: p, whiskeyType: whiskey_type,
                whiskeyBrand: whiskey_brand, whiskeyManufacturer: whiskey_manufacturer -->
 
 
 
-      <tr  v-for="wh in byBrand(whiskeys)" :key="wh.name">
+      <tr  v-for="wh in w" :key="wh.name">
 
         <td> {{ wh.whiskeyBrand }}</td>
         <td>{{ wh.name }}</td>
@@ -27,7 +27,7 @@
     </tbody>
     </table>
 
-
+</div>
 
 </template>
 
@@ -47,7 +47,7 @@ export default {
 
   props: {
     msg: String,
-    whiskeys: []
+    w: []
   },
 
   inject: [   "byBrand"
@@ -65,15 +65,11 @@ export default {
       whiskeyCount: 0,
       prices: {min: 0, max:10000 },
     //  propsedSelections: [],
-      visible: false,
-      wl: this.whiskeys
 
     }
   },
   created() {
-    if (this.whiskeys.length > 0 ){
-this.visible = true
-    }// this.whiskey = imenupro
+// this.whiskey = imenupro
     // var menus = document.getElementsByClassName('imp-menu')
     // var bottles = []
     // var badBottles = []

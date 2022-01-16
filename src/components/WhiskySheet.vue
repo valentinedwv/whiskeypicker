@@ -3,7 +3,7 @@
     <h1>All Whiskeys</h1>
 
     <h1  v-if="whiskeys.length >0">Whiskey Count: {{ whiskeys.length }}</h1>
-  <WhiskyTable :whiskeys="whiskeys" />
+  <WhiskyTable :w="byBrand(whiskeys)" />
 
 
   </div>
@@ -44,15 +44,12 @@ export default {
       whiskeyCount: 0,
       prices: {min: 0, max:10000 },
     //  propsedSelections: [],
-      visible: false,
-      wl: this.whiskeys
+
 
     }
   },
   created() {
-    if (this.whiskeys.length > 0 ){
-this.visible = true
-    }// this.whiskey = imenupro
+// this.whiskey = imenupro
     // var menus = document.getElementsByClassName('imp-menu')
     // var bottles = []
     // var badBottles = []
