@@ -26,7 +26,7 @@
 
 <script>
 export default {
-  name: "WhiskeyTable",
+  name: "WhiskeyCards",
   props: {
     msg: String,
     w: [],

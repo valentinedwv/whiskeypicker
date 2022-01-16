@@ -47,9 +47,9 @@
 
 
     <h1  v-if="whiskeys.length >0" > Showing {{listPriceRange(this.whiskeys,this.prices,this.whiskeyTypesSelect).length}}  of {{ this.whiskeys.length }} Bottles</h1>
-    <WhiskeyTable msg="Whiskeys" :w="listPriceRange(this.whiskeys,this.prices,this.whiskeyTypesSelect)" :range="{min: 0, max:10000 }" :wt="whiskeyTypesSelect"
+    <WhiskeyCards msg="Whiskeys" :w="listPriceRange(this.whiskeys,this.prices,this.whiskeyTypesSelect)" :range="{min: 0, max:10000 }" :wt="whiskeyTypesSelect"
                   :count=10000
-    ></WhiskeyTable>
+    ></WhiskeyCards>
 <!--    <div>{{ whiskeyTypes }}</div>-->
 <!--    <div>Min {{ priceMin }}</div>-->
 <!--    <div>Max {{ priceMax }}</div>(-->
@@ -101,10 +101,10 @@ grab all the imp-food-item, then imp-name[0].textContent, imp-price[0].textConte
 //https://cleverbeagle.com/blog/articles/tutorial-how-to-load-third-party-scripts-dynamically-in-javascript
 //import imenupro from  'whiskey1'
 import vm from 'vue'
-import WhiskeyTable from './WhiskeyTable'
+import WhiskeyCards from './WhiskeyCards'
 export default {
   name: 'WhiskyList',
-  components:{"WhiskeyTable":WhiskeyTable},
+  components:{"WhiskeyCards":WhiskeyCards},
   props: {
     msg: String,
     whiskeys: []

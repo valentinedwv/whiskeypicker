@@ -3,13 +3,13 @@
     <h1>Flight of the Random Whiskey</h1>
     <h3> This shows two random whiskeys from a set of price ranges. You can filter by region by going to the bottom of the page</h3>
     <h4  v-if="whiskeys.length >0">Selecting from {{whiskeys.length}} Bottles</h4>
-    <WhiskeyTable msg="Any of Them" :w="showPriceRange(whiskeys,{min: 0, max:10000 },whiskeyTypesSelect,2)" :range="{min: 0, max:10000 }" :wt="whiskeyTypesSelect" />
-    <WhiskeyTable msg="Everyday" :w="showPriceRange(whiskeys,{min: 0, max:15 },whiskeyTypesSelect,2)" :range="{min: 0, max:15 }" :wt="whiskeyTypesSelect" />
-    <WhiskeyTable msg="Good Day" :w="showPriceRange(whiskeys,{min: 10, max:30 },whiskeyTypesSelect,2)" :range="{min: 10, max:30 }" :wt="whiskeyTypesSelect" />
-    <WhiskeyTable msg="Great Day" :w="showPriceRange(whiskeys,{min: 20, max:40 },whiskeyTypesSelect,2)" :range="{min: 20, max:40 }" :wt=" whiskeyTypesSelect" />
-    <WhiskeyTable msg="Special Day" :w="showPriceRange(whiskeys,{min: 30, max:60 },whiskeyTypesSelect,2)" :range="{min: 30, max:60 }" :wt="whiskeyTypesSelect" />
-    <WhiskeyTable msg="Make Bruces' Day" :w="showPriceRange(whiskeys,{min: 50, max:100 },whiskeyTypesSelect,2)" :range="{min: 50, max:100 }" :wt="whiskeyTypesSelect" />
-    <WhiskeyTable msg="Extra Special" :w="showPriceRange(whiskeys,{min: 75, max:10000 },whiskeyTypesSelect,2)" :range="{min: 75, max:10000 }" :wt="whiskeyTypesSelect" />
+    <WhiskeyCards msg="Any of Them" :w="showPriceRange(whiskeys,{min: 0, max:10000 },whiskeyTypesSelect,2)" :range="{min: 0, max:10000 }" :wt="whiskeyTypesSelect" />
+    <WhiskeyCards msg="Everyday" :w="showPriceRange(whiskeys,{min: 0, max:15 },whiskeyTypesSelect,2)" :range="{min: 0, max:15 }" :wt="whiskeyTypesSelect" />
+    <WhiskeyCards msg="Good Day" :w="showPriceRange(whiskeys,{min: 10, max:30 },whiskeyTypesSelect,2)" :range="{min: 10, max:30 }" :wt="whiskeyTypesSelect" />
+    <WhiskeyCards msg="Great Day" :w="showPriceRange(whiskeys,{min: 20, max:40 },whiskeyTypesSelect,2)" :range="{min: 20, max:40 }" :wt=" whiskeyTypesSelect" />
+    <WhiskeyCards msg="Special Day" :w="showPriceRange(whiskeys,{min: 30, max:60 },whiskeyTypesSelect,2)" :range="{min: 30, max:60 }" :wt="whiskeyTypesSelect" />
+    <WhiskeyCards msg="Make Bruces' Day" :w="showPriceRange(whiskeys,{min: 50, max:100 },whiskeyTypesSelect,2)" :range="{min: 50, max:100 }" :wt="whiskeyTypesSelect" />
+    <WhiskeyCards msg="Extra Special" :w="showPriceRange(whiskeys,{min: 75, max:10000 },whiskeyTypesSelect,2)" :range="{min: 75, max:10000 }" :wt="whiskeyTypesSelect" />
 
 
     <div>Limit Selections to: </div>
@@ -38,10 +38,10 @@ grab all the imp-food-item, then imp-name[0].textContent, imp-price[0].textConte
 <script>
 //https://cleverbeagle.com/blog/articles/tutorial-how-to-load-third-party-scripts-dynamically-in-javascript
 //import imenupro from  'whiskey1'
-import WhiskeyTable from './WhiskeyTable'
+import WhiskeyCards from './WhiskeyCards'
 export default {
   name: 'WhiskySelector',
-  components:{"WhiskeyTable":WhiskeyTable},
+  components:{"WhiskeyCards":WhiskeyCards},
   props: {
     msg: String,
     whiskeys: []

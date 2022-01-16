@@ -1,12 +1,34 @@
 <template>
-  <div >
-    <h1>All Whiskeys</h1>
-
-    <h1  v-if="whiskeys.length >0">Whiskey Count: {{ whiskeys.length }}</h1>
-  <WhiskyTable :whiskeys="whiskeys" />
 
 
-  </div>
+    <table class="primary" v-if="whiskeys.length >0">
+      <thead>
+      <tr>
+        <th>Brand</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Manufacturer</th>
+      </tr>
+      </thead>
+    <tbody  v-if="whiskeys.length >0">
+      <!--  name: name, price: p, whiskeyType: whiskey_type,
+               whiskeyBrand: whiskey_brand, whiskeyManufacturer: whiskey_manufacturer -->
+
+
+
+      <tr  v-for="wh in byBrand(whiskeys)" :key="wh.name">
+
+        <td> {{ wh.whiskeyBrand }}</td>
+        <td>{{ wh.name }}</td>
+        <td>{{ wh.price }}</td>
+        <td>{{ wh.whiskeyManufacturer }} </td>
+
+      </tr>
+    </tbody>
+    </table>
+
+
+
 </template>
 
 <!--
@@ -20,10 +42,9 @@ grab all the imp-food-item, then imp-name[0].textContent, imp-price[0].textConte
 //https://cleverbeagle.com/blog/articles/tutorial-how-to-load-third-party-scripts-dynamically-in-javascript
 //import imenupro from  'whiskey1'
 
-import WhiskyTable from "./WhiskyTable";
 export default {
-  name: 'WhiskySheet',
-  components: {WhiskyTable},
+  name: 'WhiskyTable',
+
   props: {
     msg: String,
     whiskeys: []

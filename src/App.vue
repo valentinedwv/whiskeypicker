@@ -147,6 +147,7 @@ export default {
       }
     }
     this.whiskeys = bottles.sort((a, b) => a.price - b.price)
+
     this.whiskeyBadPrice = badBottles
     console.log(`whiskeys ${this.whiskeys.length}`)
   },
