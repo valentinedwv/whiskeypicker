@@ -1,7 +1,7 @@
 <template>
 
 <div>
-    <table class="primary" >
+    <table class="primary" v-if="w.length > 0">
       <thead>
       <tr>
         <th>Brand</th>

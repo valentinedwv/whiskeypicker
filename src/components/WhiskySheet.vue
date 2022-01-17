@@ -2,8 +2,8 @@
   <div >
     <h1>All Whiskeys</h1>
 
-    <h1  v-if="whiskeys.length >0">Whiskey Count: {{ whiskeys.length }}</h1>
-  <WhiskyTable :w="byBrand(whiskeys)" />
+    <h1  v-if="whiskeys">Whiskey Count: {{ whiskeys.length }}</h1>
+  <WhiskyTable :w="sortedWhiskeys" />
 
 
   </div>
@@ -38,6 +38,7 @@ export default {
  //  },
   data() {
     return {
+      sortedWhiskeys: []
 //      whiskey: this.whiskeys,
 
     //  propsedSelections: [],
@@ -45,47 +46,11 @@ export default {
 
     }
   },
-  created() {
-// this.whiskey = imenupro
-    // var menus = document.getElementsByClassName('imp-menu')
-    // var bottles = []
-    // var badBottles = []
-    // for (var i = 0, len = menus.length | 0; i < len; i = i + 1 | 0) {
-    //   var headers = menus[i].getElementsByClassName('imp-heading')
-    //   var menuName = "SomeWhiskey"
-    //   if (headers != undefined) {
-    //     menuName = headers[0].textContent
-    //   }
-    //
-    //   var w = menus[i].getElementsByClassName('imp-food-item')
-    //
-    //   for (var n = 0, nlen = w.length | 0; n < nlen; n = n + 1 | 0) {
-    //     var nameEl = w[n].getElementsByClassName('imp-name')
-    //     var priceEl = w[n].getElementsByClassName('imp-price')
-    //     if (nameEl.length > 0 && priceEl.length > 0) {
-    //       var name = nameEl[0].textContent ? nameEl[0].textContent : 'Missing'
-    //       var price = priceEl[0].textContent ? priceEl[0].textContent.split('/') : undefined
-    //       if ( isNaN(price)) {
-    //         var p = parseInt(price)
-    //         if (Number.isInteger(p))
-    //         bottles.push({name: name, price: p, whiskeyType: menuName})
-    //       } else {
-    //         badBottles.push({name: name, price: price[0], whiskeyType: menuName})
-    //       }
-    //
-    //     }
-    //
-    //
-    //   }
-    //   console.log(`menu: ${i}`)
-    //   console.log(`count: ${bottles.length}`)
-    //   console.log(`count bad: ${badBottles.length}`)
-    // }
-    // this.whiskey = bottles.sort((a,b)=> a.price - b.price)
-    // this.whiskeyBadPrice = badBottles
-    //
-    // this.whiskeyCount = this.whiskey.length
-   // this.spinTheBottle()
+  mounted() {
+    if (this.whiskeys){
+      this.sortedWhiskeys = this.byBrand(this.whiskeys)
+    }
+
 
 
   },

@@ -6,7 +6,7 @@
 <div class="flex one ">
       <div ><router-link :to="{ name: 'spin', params: { whiskeys: whiskeys }}"> Spin Bottle (Random)</router-link></div>
       <div > <router-link :to="{ name: 'select', params: { whiskeys: whiskeys }}">Select by Region and Price</router-link></div>
-      <div ><router-link :to="{ name: 'all', params: { whiskeys: whiskeys }}">Listing of All Bottles</router-link></div>
+      <div ><router-link :to="{ name: 'listing', params: { whiskeys: whiskeys }}">Listing of All Bottles</router-link></div>
 </div>
     <router-view></router-view>
 

@@ -22,11 +22,11 @@ const routes = [
 
           whiskeys:route.params.whiskeys
         }) },
-  { path: '/all', name:"all",component: WhiskySheet,
+  { path: '/listing', name:"listing",component: WhiskySheet,
     props:
         route => ({
 
-          whiskeys:route.params.whiskeys
+            whiskeys:route.params.whiskeys
         }) }
 
 ]
