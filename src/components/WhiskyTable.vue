@@ -1,7 +1,7 @@
 <template>
 
 <div>
-    <table class="primary" v-if="w.length >0">
+    <table class="primary" >
       <thead>
       <tr>
         <th>Brand</th>
@@ -10,7 +10,7 @@
         <th>Manufacturer</th>
       </tr>
       </thead>
-    <tbody  v-if="w.length >0">
+    <tbody  >
       <!--  name: name, price: p, whiskeyType: whiskey_type,
                whiskeyBrand: whiskey_brand, whiskeyManufacturer: whiskey_manufacturer -->
 
@@ -50,24 +50,15 @@ export default {
     w: []
   },
 
-  inject: [   "byBrand"
+  inject: [
+      //"byBrand"
     //, "whiskeys"
 
   ],
  //  watch:{
  // //   whiskeys:"spinTheBottle"
  //  },
-  data() {
-    return {
-//      whiskey: this.whiskeys,
-      whiskeyTypesSelect:[],
-      whiskeyBadPrice:[],
-      whiskeyCount: 0,
-      prices: {min: 0, max:10000 },
-    //  propsedSelections: [],
 
-    }
-  },
   created() {
 // this.whiskey = imenupro
     // var menus = document.getElementsByClassName('imp-menu')

@@ -23,7 +23,7 @@ grab all the imp-food-item, then imp-name[0].textContent, imp-price[0].textConte
 import WhiskyTable from "./WhiskyTable";
 export default {
   name: 'WhiskySheet',
-  components: {WhiskyTable},
+  components: {"WhiskyTable": WhiskyTable},
   props: {
     msg: String,
     whiskeys: []
@@ -39,10 +39,7 @@ export default {
   data() {
     return {
 //      whiskey: this.whiskeys,
-      whiskeyTypesSelect:[],
-      whiskeyBadPrice:[],
-      whiskeyCount: 0,
-      prices: {min: 0, max:10000 },
+
     //  propsedSelections: [],
 
 
