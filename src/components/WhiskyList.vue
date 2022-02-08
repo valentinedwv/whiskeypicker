@@ -50,7 +50,7 @@
     <WhiskeyCards msg="Whiskeys" :w="listPriceRange(this.whiskeys,this.prices,this.whiskeyTypesSelect)" :range="{min: 0, max:10000 }" :wt="whiskeyTypesSelect"
                   :count=10000
     ></WhiskeyCards>
-<!--    <div>{{ whiskeyTypes }}</div>-->
+<!--    <div>{{ getWhiskeyTypes }}</div>-->
 <!--    <div>Min {{ priceMin }}</div>-->
 <!--    <div>Max {{ priceMax }}</div>(-->
 <!--    <div>count {{ filter(this.whiskey, prices).length}}</div>-->
@@ -173,7 +173,7 @@ export default {
 
   },
   computed: {
-    // whiskeyTypes: function () {
+    // getWhiskeyTypes: function () {
     //   if (this.whiskeys) {
     //     var unique = [...new Set(this.whiskeys.map(item => item.whiskeyType))];
     //     unique = unique.sort( (a,b)=> a < b )
@@ -212,7 +212,7 @@ export default {
   methods:{
     selectFilters: () => vm.$forceUpdate(),
 
-    // whiskeyTypes: function () {
+    // getWhiskeyTypes: function () {
     //   if (this.whiskeys) {
     //     var unique = [...new Set(this.whiskeys.map(item => item.whiskeyType))];
     //     return unique

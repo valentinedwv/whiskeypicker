@@ -108,7 +108,7 @@ export default {
 
   },
   computed: {
-    // whiskeyTypes: function () {
+    // getWhiskeyTypes: function () {
     //   if (this.whiskeys) {
     //     var unique = [...new Set(this.whiskeys.map(item => item.whiskeyType))];
     //     return unique
@@ -144,7 +144,7 @@ export default {
     }
   },
   methods:{
-    // whiskeyTypes: function () {
+    // getWhiskeyTypes: function () {
     //   if (this.whiskeys) {
     //     var unique = [...new Set(this.whiskeys.map(item => item.whiskeyType))];
     //     return unique

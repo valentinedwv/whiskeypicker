@@ -5,6 +5,7 @@ import App from './App.vue'
 import WhiskySelector from "./components/WhiskySelector";
 import WhiskyList from "./components/WhiskyList";
 import WhiskySheet from "./components/WhiskySheet";
+import WhiskyByType from "./components/WhiskyByType";
 
 
 Vue.config.productionTip = false
@@ -27,7 +28,13 @@ const routes = [
         route => ({
 
             whiskeys:route.params.whiskeys
-        }) }
+        }) },
+    { path: '/typelisting', name:"typelisting",component: WhiskyByType,
+        props:
+            route => ({
+
+                whiskeys:route.params.whiskeys
+            }) }
 
 ]
 const router = new VueRouter({

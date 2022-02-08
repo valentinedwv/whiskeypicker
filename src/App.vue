@@ -7,6 +7,7 @@
       <div ><router-link :to="{ name: 'spin', params: { whiskeys: whiskeys }}"> Spin Bottle (Random)</router-link></div>
       <div > <router-link :to="{ name: 'select', params: { whiskeys: whiskeys }}">Select by Region and Price</router-link></div>
       <div ><router-link :to="{ name: 'listing', params: { whiskeys: whiskeys }}">Listing of All Bottles</router-link></div>
+  <div ><router-link :to="{ name: 'typelisting', params: { whiskeys: whiskeys }}">By Type Listing of  Bottles</router-link></div>
 </div>
     <router-view></router-view>
 
@@ -41,9 +42,10 @@ export default {
       spinTheBottle: this.spinTheBottle,
       showPriceRange: this.showPriceRange,
       propsedSelections: this.propsedSelections,
-      whiskeyTypes: this.whiskeyTypes,
+      whiskeyTypes: this.getWhiskeyTypes,
       listPriceRange: this.listPriceRange,
       byBrand: this.byBrand,
+      byType: this.byType
     }
   },
   data() {
@@ -152,7 +154,7 @@ export default {
     console.log(`whiskeys ${this.whiskeys.length}`)
   },
   methods:{
-    whiskeyTypes: function (w) {
+    getWhiskeyTypes: (w)=> {
       if (w) {
         var unique = [...new Set(w.map(item => item.whiskeyType))];
         //unique = unique.sort ((a,b)=> a.localeCompare(b))
@@ -180,6 +182,39 @@ export default {
       } else {
         return []
       }
+
+    },
+    byType: (w)=> {
+      if (w ){
+        //let wtypes = this.getWhiskeyTypes(w)
+        // for some reason it's not seeing the getWHiskeyTypes function
+        let wtypes  = [...new Set(w.map(item => item.whiskeyType))];
+
+        let by = wtypes.map(
+            (wt)=> {
+          return w.filter(
+              (a)=> {
+            let matchType = ! a.whiskeyType.localeCompare(wt)
+                return matchType
+          })
+
+        }
+        )
+         by = by.map(
+             (bt)=> bt.sort((a,b)=> a.whiskeyBrand.localeCompare( b.whiskeyBrand)
+                 //(t) => console.log (t)
+                // (t)=> t.sort((a,b)=> a.whiskeyBrand.localeCompare( b.whiskeyBrand))
+             )
+         )
+        if (by ){
+          return by
+        } else {
+          return []
+        }
+      } else {
+        return []
+      }
+
 
     },
     filter(w,price, whiskeyTypesSelect=undefined){
