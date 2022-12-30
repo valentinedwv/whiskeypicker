@@ -7,7 +7,8 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "postinstall": "npm run build",
-    "start": "node server.js"
+    "start": "node server.js",
+    "deploy": "node scripts/gh-pages-deploy.js"
   },
   "dependencies": {
     "core-js": "^3.6.5",
@@ -25,6 +26,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "execa": "^6.1.0",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
