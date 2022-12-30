@@ -9,18 +9,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-#      - uses: actions/setup-node@v3
-#        with:
-#          node-version: '16'
-#      - name: Install packages
-#        run: npm i
-#      - name: Set Creds
-#        run: git config user.name "<username>" && git config user.email "<email>"
-#      - name: Deploy
-#        run: npm run deploy
-      - id: Build-Vue
-        uses: xRealNeon/VuePagesAction@1.0.1
+      - uses: actions/setup-node@v3
         with:
-          username: valentinedwv
-          reponame: whiskeypicker
-          token: ${{ secrets.GITHUB_TOKEN }}
+          node-version: '16'
+      - name: Install packages
+        run: npm i
+      - name: Set Creds
+        run: git config user.name "<username>" && git config user.email "<email>"
+      - name: Deploy
+        run: npm run deploy
+#      - id: Build-Vue
+#        uses: xRealNeon/VuePagesAction@1.0.1
+#        with:
+#          username: valentinedwv
+#          reponame: whiskeypicker
+#          token: ${{ secrets.GITHUB_TOKEN }}
