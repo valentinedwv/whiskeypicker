@@ -15,7 +15,7 @@ jobs:
       - name: Install packages
         run: yrn install
       - name: Set Creds
-        run: git config user.name "<username>" && git config user.email "<email>"
+        run: git config user.name valentinedwv && git config user.email david.valentine@gmail.com
       - name: Deploy
         run: yarn run deploy
 #      - id: Build-Vue
