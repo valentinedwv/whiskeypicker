@@ -9,18 +9,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-      - name: Install packages
-        run: yarn install
-      - name: Set Creds
-        run: git config user.name valentinedwv && git config user.email david.valentine@gmail.com
-      - name: Deploy
-        run: yarn run deploy
-#      - id: Build-Vue
-#        uses: xRealNeon/VuePagesAction@1.0.1
+#      - uses: actions/setup-node@v3
 #        with:
-#          username: valentinedwv
-#          reponame: whiskeypicker
-#          token: ${{ secrets.GITHUB_TOKEN }}
+#          node-version: '16'
+#      - name: Install packages
+#        run: yarn install
+#      - name: Set Creds
+#        run: git config user.name valentinedwv && git config user.email david.valentine@gmail.com
+#      - name: Deploy
+#        run: yarn run deploy
+      - id: Build-Vue
+        uses: xRealNeon/VuePagesAction@1.0.1
+        with:
+          username: valentinedwv
+          reponame: whiskeypicker
+          token: ${{ secrets.GITHUB_TOKEN }}
+          useyarn: true
